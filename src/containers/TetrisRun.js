@@ -1,51 +1,7 @@
 import React, { Component } from 'react';
-import TetrisBoard from './TetrisBoard';
+import TetrisBoard from '../components/TetrisBoard';
 import '../styles/App.css';
-
-const NUM_ROWS = 20; //num of rows
-const NUM_COLS = 10; //num of columns
-const TICK_MS = 400; //time between board updates
-
-//array of tetris pieces
-const pieces =
-  [[[0, 0, 0, 0],
-    [0, 1, 1, 0],
-    [0, 1, 1, 0],
-    [0, 0, 0, 0]], //square
-   [[0, 0, 1, 0],
-    [0, 0, 1, 0],
-    [0, 0, 1, 0],
-    [0, 0, 1, 0]], //I piece
-   [[0, 0, 1, 0],
-    [0, 1, 1, 0],
-    [0, 0, 1, 0],
-    [0, 0, 0, 0]], //T piece
-   [[0, 0, 0, 0],
-    [0, 0, 1, 1],
-    [0, 1, 1, 0],
-    [0, 0, 0, 0]], //S piece
-   [[0, 0, 0, 0],
-    [0, 1, 1, 0],
-    [0, 0, 1, 1],
-    [0, 0, 0, 0]], //Z piece
-   [[0, 0, 1, 0],
-    [0, 0, 1, 0],
-    [0, 1, 1, 0],
-    [0, 0, 0, 0]], //J piece
-   [[0, 1, 0, 0],
-    [0, 1, 0, 0],
-    [0, 1, 1, 0],
-    [0, 0, 0, 0]]]; //L piece
-
-//mapping keys to keycodes
-const KEY_ENTER = 13;
-const KEY_SPACE = 32;
-const KEY_LEFT = 37;
-const KEY_RIGHT = 39;
-const KEY_DOWN = 40;
-const KEY_A = 65;
-const KEY_D = 68;
-const KEY_R = 82;
+import * as types from '../constants/Constants'
 
 //main run component
 class TetrisRun extends Component {
@@ -71,7 +27,7 @@ class TetrisRun extends Component {
     window.addEventListener('keydown', this.keyHandler);
     this.intervalHandler = setInterval(
       () => this.tick(),
-      TICK_MS
+      types.TICK_MS
     );
   };
 
@@ -80,7 +36,7 @@ class TetrisRun extends Component {
     clearInterval(this.intervalHandler);
   };
 
-    //tick called every TICK_MS to update game board
+    //tick called every types.TICK_MS to update game board
   tick(){
       //if game over, end game
       if (this.state.gameOver){
@@ -96,12 +52,12 @@ class TetrisRun extends Component {
           
           if (r.numRowsKilled){
               this.setState((prevState, props) => ({
-                score: prevState.score += 1 + (r.numRowsKilled * r.numRowsKilled * NUM_COLS),
+                score: prevState.score += 1 + (r.numRowsKilled * r.numRowsKilled * types.NUM_COLS),
                 rows: r.rows,
               }));
           };
           //then checks for game over
-          if (this.intersects(this.nextrows, this.state.nextPiece, 0, NUM_COLS / 2 - 2)) {
+          if (this.intersects(this.nextrows, this.state.nextPiece, 0, types.NUM_COLS / 2 - 2)) {
               this.setState({
                 gameOver: true,
               });
@@ -128,7 +84,7 @@ class TetrisRun extends Component {
       for (let i = 0; i < 4; i++)
           for (let j = 0; j < 4; j++)
               if (piece[i][j])
-                  if (y+i >= NUM_ROWS || x+j < 0 || x+j >= NUM_COLS || this.state.rows[y+i][x+j])
+                  if (y+i >= types.NUM_ROWS || x+j < 0 || x+j >= types.NUM_COLS || this.state.rows[y+i][x+j])
                       return true;
       return false;
   };
@@ -136,9 +92,9 @@ class TetrisRun extends Component {
   //if rows killed, removes them and sends data to compute score
   killRows(rows){
       const newRows = [];
-      let k = NUM_ROWS;
-      for (let i = NUM_ROWS; i --> 0;) {
-          for (let j = 0; j < NUM_COLS; j++) {
+      let k = types.NUM_ROWS;
+      for (let i = types.NUM_ROWS; i --> 0;) {
+          for (let j = 0; j < types.NUM_COLS; j++) {
               if (!rows[i][j]) {
                   newRows[--k] = rows[i].slice();
                   break;
@@ -147,7 +103,7 @@ class TetrisRun extends Component {
       }
       for (let i = 0; i < k; i++) {
           newRows[i] = [];
-          for (let j = 0; j < NUM_COLS; j++)
+          for (let j = 0; j < types.NUM_COLS; j++)
               newRows[i][j] = 0;
       }
       return {
@@ -159,7 +115,7 @@ class TetrisRun extends Component {
   //when piece settles, fixes piece to board
   applyPiece(rows, piece, y, x){
       const newRows = [];
-      for (let i = 0; i < NUM_ROWS; i++)
+      for (let i = 0; i < types.NUM_ROWS; i++)
           newRows[i] = rows[i].slice();
       for (let i = 0; i < 4; i++)
           for (let j = 0; j < 4; j++)
@@ -171,9 +127,9 @@ class TetrisRun extends Component {
   //create a multidimensional matrix for board
   createArray(){
       let rows = [];
-      for (let i = 0; i < NUM_ROWS; ++i) {
+      for (let i = 0; i < types.NUM_ROWS; ++i) {
           let columns = [];
-          for (let j = 0; j < NUM_COLS; ++j) {
+          for (let j = 0; j < types.NUM_COLS; ++j) {
               columns[j] = 0; //change to 0
           };
           rows[i] = columns;
@@ -181,9 +137,9 @@ class TetrisRun extends Component {
       return rows;
   };
 
-  //gets a random piece from const pieces
+  //gets a random piece from const types.pieces
   randomPiece() {
-      return pieces[Math.floor(Math.random() * pieces.length)];
+      return types.pieces[Math.floor(Math.random() * types.pieces.length)];
   };
 
   render() {
@@ -309,21 +265,21 @@ class TetrisRun extends Component {
       if (k.shiftKey || k.altKey || k.metaKey)
         return;
 
-      if (k.keyCode === KEY_ENTER) {
+      if (k.keyCode === types.KEY_ENTER) {
         this.pause();
-      } else if (k.keyCode === KEY_R) {
+      } else if (k.keyCode === types.KEY_R) {
         this.clear();
-      } else if (k.keyCode === KEY_LEFT && !this.state.isPaused) {
+      } else if (k.keyCode === types.KEY_LEFT && !this.state.isPaused) {
         this.steerLeft();
-      } else if (k.keyCode === KEY_RIGHT && !this.state.isPaused) {
+      } else if (k.keyCode === types.KEY_RIGHT && !this.state.isPaused) {
         this.steerRight();
-      } else if (k.keyCode === KEY_DOWN && !this.state.isPaused) {
+      } else if (k.keyCode === types.KEY_DOWN && !this.state.isPaused) {
         this.steerDown();
-      } else if (k.keyCode === KEY_A && !this.state.isPaused) {
+      } else if (k.keyCode === types.KEY_A && !this.state.isPaused) {
         this.rotateLeft();
-      } else if (k.keyCode === KEY_D && !this.state.isPaused) {
+      } else if (k.keyCode === types.KEY_D && !this.state.isPaused) {
         this.rotateRight();
-      } else if (k.keyCode === KEY_SPACE && !this.state.isPaused) {
+      } else if (k.keyCode === types.KEY_SPACE && !this.state.isPaused) {
         this.letFall();
       } else {
         return;
