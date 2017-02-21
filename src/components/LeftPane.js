@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import TetrisScore from './TetrisScore';
-import TetrisPreview from './TetrisPreview';
+import TetrisPreview from '../containers/TetrisPreview';
 import TetrisUsage from './TetrisUsage';
 import '../styles/App.css';
 

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import LeftPane from './LeftPane';
-import RightPane from './RightPane';
+import RightPane from '../containers/RightPane';
 import '../styles/App.css';
 
 //renders left pane (preview, score, usage) and right pane (game board)

@@ -2,7 +2,7 @@ import React from 'react';
 import { Router, Route, browserHistory, IndexRoute } from 'react-router'
 import Main from '../components/Main';
 import Home from "../components/Home";
-import App from '../components/App';
+import App from '../containers/App';
 import About from "../components/About";
 
 var routes = (
