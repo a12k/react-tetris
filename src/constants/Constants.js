@@ -1,6 +1,8 @@
 export const NUM_ROWS = 20 //num of rows
 export const NUM_COLS = 10 //num of columns
 export const TICK_MS = 400 //time between board updates
+export const BLOCK_WIDTH = 30
+export const BLOCK_HEIGHT = 30
 
 //array of tetris pieces
 export const pieces =

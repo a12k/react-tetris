@@ -1,8 +1,7 @@
-import React, { Component } from 'react';
-import '../styles/App.css';
+import React from 'react'
+import '../styles/App.css'
 
-class App extends Component {
-  render() {
+function About(props) {
     return (
       <div className="App">
         <div className="App-header"> 
@@ -15,7 +14,6 @@ class App extends Component {
         </div>
       </div>
     );
-  }
 }
 
-export default App;
+export default About;

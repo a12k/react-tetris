@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
-import TetrisRun from '../containers/TetrisRun';
-import '../styles/App.css';
-import '../styles/tetris.css';
+import React, { Component } from 'react'
+import TetrisRun from './TetrisRun'
+import '../styles/App.css'
+import '../styles/tetris.css'
 
 class App extends Component {
   render() {

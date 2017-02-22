@@ -1,16 +1,14 @@
-import React, { Component } from 'react';
+import React from 'react'
 
 //renders score component, plus PAUSED and GAME OVER flags
-class TetrisScore extends Component {
-    render() {
-        return (
-          <div>
-            <p>Score: {this.props.score}</p>
-            <p>{this.props.isPaused ? 'PAUSED' : ''}</p>
-            <p>{this.props.gameOver ? 'GAME OVER' : ''}</p>
-          </div>
-        );
-    }
+function TetrisScore(props) {
+  return (
+    <div>
+      <p>Score: {props.score}</p>
+      <p>{props.isPaused ? 'PAUSED' : ''}</p>
+      <p>{props.gameOver ? 'GAME OVER' : ''}</p>
+    </div>
+  );
 }
 
 export default TetrisScore;

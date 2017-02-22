@@ -1,22 +1,21 @@
-import React, { Component } from 'react';
-import TetrisScore from './TetrisScore';
-import TetrisPreview from '../containers/TetrisPreview';
-import TetrisUsage from './TetrisUsage';
-import '../styles/App.css';
+import React from 'react'
+import TetrisScore from './TetrisScore'
+import TetrisPreview from '../containers/TetrisPreview'
+import TetrisUsage from './TetrisUsage'
+import '../styles/App.css'
 
 //calls components to render score, preview, control
-class LeftPane extends Component {
-  render() {
+function LeftPane(props) {
     return (
     <div className="App">
       <div className="tetrisPreview">
-        <TetrisPreview nextPiece={this.props.nextPiece} />
+        <TetrisPreview nextPiece={props.nextPiece} />
       </div>
       <div className="tetrisScore">
         <TetrisScore 
-          isPaused={this.props.isPaused}
-          gameOver={this.props.gameOver}
-          score={this.props.score}
+          isPaused={props.isPaused}
+          gameOver={props.gameOver}
+          score={props.score}
         />
       </div>
       <div className="tetrisUsage">
@@ -24,7 +23,6 @@ class LeftPane extends Component {
       </div>
     </div>
     );
-  }
 }
 
 export default LeftPane;
