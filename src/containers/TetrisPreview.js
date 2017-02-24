@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import * as types from '../constants/Constants'
-import _ from 'underscore'
+import { flatten } from '../utils/helpers'
 
 //renders preview box of next piece
 class TetrisPreview extends Component {
   render() {
-    let preview = _.flatten(this.props.nextPiece);
+    let preview = flatten(this.props.nextPiece);
     return <div>{preview.map( (tile, idx) => {
 
       let position={

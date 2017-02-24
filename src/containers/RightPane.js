@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
 import * as types from '../constants/Constants'
-import _ from 'underscore'
+import { flatten } from '../utils/helpers'
 
 //renders tetris board itself
 class RightPane extends Component {
   render() {
-    let flattened = _.flatten(this.props.rows);
+    let flattened = flatten(this.props.rows);
     return <div className="tetrisBoard">{flattened.map( (tile, idx) => {
 
       let position = {
